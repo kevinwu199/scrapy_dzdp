@@ -17,25 +17,41 @@ class DianpingSpider(CrawlSpider):
         # 'http://www.dianping.com/shopall/193/0'  # 湘潭
         # 'https://www.dianping.com/shopall/203/0' # 娄底
         # 'https://www.dianping.com/shopall/195/0' # 邵阳
-        'http://www.dianping.com/shopall/197/0' # 常德
+        # 'http://www.dianping.com/shopall/197/0' # 常德
+        # 'http://www.dianping.com/shopall/262/0' # 铜仁
+        'http://www.dianping.com/shopall/202/0' # 怀化
     ]
 
     user_agent_flag = True
 
-    xundaili_proxy_flag = True
+    random_proxy_flag = True
+
+    # font_name_dict = {
+    #     "uniefeb": "1",
+    #     "unie4ff": "2",
+    #     "unif70d": "3",
+    #     "unie6ec": "4",
+    #     "unif404": "5",
+    #     "unie65d": "6",
+    #     "unie284": "7",
+    #     "unif810": "8",
+    #     "unie27b": "9",
+    #     "uniec2d": "0"
+    # }
 
     font_name_dict = {
-        "uniefeb": "1",
-        "unie4ff": "2",
-        "unif70d": "3",
-        "unie6ec": "4",
-        "unif404": "5",
-        "unie65d": "6",
-        "unie284": "7",
-        "unif810": "8",
-        "unie27b": "9",
-        "uniec2d": "0"
+        "unie246": "1",
+        "unif875": "2",
+        "unie5d3": "3",
+        "unif32b": "4",
+        "unif33b": "5",
+        "unif604": "6",
+        "uniea60": "7",
+        "unieda6": "8",
+        "unif729": "9",
+        "unief6e": "0"
     }
+
 
     font_code_dict = {}
 
@@ -46,12 +62,12 @@ class DianpingSpider(CrawlSpider):
     def __init__(self, mode="page"):
         self.mode = mode
         self.error_page = []
+        self.source_font_xml = 'dianping1.xml'
 
     def valid_verify(self, response):
         return False if response.url.find("verify.meituan.com") >= 0 else True
 
     def parse(self, response):
-
         if not self.valid_verify(response):
             yield response.request.replace(url=response.request.meta["redirect_urls"][0])
             return
@@ -169,7 +185,7 @@ class DianpingSpider(CrawlSpider):
         :return:
         """
 
-        with open("dianping.xml") as f:
+        with open(self.source_font_xml) as f:
             line = f.readline()
             while line:
                 content = re.findall('code="([^"]*?)" name="([^"]*?)"', line)

@@ -13,7 +13,7 @@ class XundailiProxyDownloaderMiddleware(object):
     proxy_pass = "AD1ACE274D67C1A7"
 
     def process_request(self, request, spider):
-        if hasattr(spider, "xundaili_proxy_flag") and spider.xundaili_proxy_flag:
+        if hasattr(spider, "random_proxy_flag") and spider.random_proxy_flag:
             request.meta["proxy"] = "http://http-dyn.abuyun.com:9020"
             user_pass = "%s:%s" % (self.proxy_user, self.proxy_pass)
             proxy_auth = "Basic " + base64.b64encode(user_pass.encode("utf8")).decode("utf8")

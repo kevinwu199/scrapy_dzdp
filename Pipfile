@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 random-useragent = "*"
 scrapy = "*"
+requests = "*"
+fonttools = "*"
 
 [requires]
 python_version = "3.6"
